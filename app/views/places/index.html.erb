@@ -1,9 +1,14 @@
-<h1>Places I've Been</h1>
+<h1>Add a New Place</h1>
 
-<ul>
-  <% @places.each do |place| %>
-    <li><%= link_to place["name"], "/places/#{place["id"]}" %></li>
-  <% end %>
-</ul>
+<form action="/places" method="post">
+  <p>
+    <label for="name">Place Name</label><br>
+    <input type="text" name="name">
+  </p>
 
-<p><%= link_to "Add a New Place", "/places/new" %></p>
+  <p>
+    <button>Add Place</button>
+  </p>
+</form>
+
+<p><%= link_to "Back to Places", "/places" %></p>
