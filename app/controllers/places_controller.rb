@@ -21,11 +21,11 @@ class PlacesController < ApplicationController
     end
   end
 
-  def edit
+  def edit  # ✅ Added edit action
     @place = Place.find(params[:id])
   end
 
-  def update
+  def update  # ✅ Added update action
     @place = Place.find(params[:id])
     if @place.update(place_params)
       redirect_to "/places/#{@place.id}"

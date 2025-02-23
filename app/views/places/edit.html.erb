@@ -1,0 +1,14 @@
+<h1>Edit Place</h1>
+
+<%= form_with model: @place, url: "/places/#{@place.id}", method: "patch" do |f| %>
+  <p>
+    <label>Place Name:</label><br>
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.submit "Update Place" %>
+  </p>
+<% end %>
+
+<p><%= link_to "Back to Places", "/places" %></p>

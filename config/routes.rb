@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   get("/places/new", { :controller => "places", :action => "new" })
   post("/places", { :controller => "places", :action => "create" })
   get("/places/:id", { :controller => "places", :action => "show" })
-  get("/places/:id/edit", { :controller => "places", :action => "edit" })
-  patch("/places/:id", { :controller => "places", :action => "update" })
+  get("/places/:id/edit", { :controller => "places", :action => "edit" })  # ✅ Add edit route
+  patch("/places/:id", { :controller => "places", :action => "update" })   # ✅ Add update route
   delete("/places/:id", { :controller => "places", :action => "destroy" })
 
   # Routes for Entries (Nested under Places)
