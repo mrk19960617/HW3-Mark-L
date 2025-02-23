@@ -14,8 +14,11 @@ class PlacesController < ApplicationController
 
   def create
     @place = Place.new
-    @place["name"] = params["name"]
-    @place.save
-    redirect_to("/places")
+    @place["name"] = params["name"]  # Assign form input to Place name
+    if @place.save
+      redirect_to("/places")  # Redirect to the list of places after saving
+    else
+      render "new"  # Stay on form if there's an error
+    end
   end
 end

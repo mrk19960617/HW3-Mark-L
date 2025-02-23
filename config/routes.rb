@@ -1,18 +1,19 @@
 Rails.application.routes.draw do
-  get 'places/index'
-  get 'places/show'
-  get 'places/new'
-  get 'places/create'
-  # Define routes for Places
-  get("/places", { :controller => "places", :action => "index" })   # List all places
-  get("/places/new", { :controller => "places", :action => "new" }) # Show form for a new place
-  post("/places", { :controller => "places", :action => "create" }) # Create a new place
-  get("/places/:id", { :controller => "places", :action => "show" }) # Show a specific place
+  get 'entries/new'
+  get 'entries/create'
+  get 'entries/edit'
+  get 'entries/update'
+  get 'entries/destroy'
+  # Routes for Places
+  get("/places", { :controller => "places", :action => "index" })
+  get("/places/new", { :controller => "places", :action => "new" })
+  post("/places", { :controller => "places", :action => "create" })
+  get("/places/:id", { :controller => "places", :action => "show" })
 
-  # Define routes for Entries (Nested under Places)
-  get("/places/:place_id/entries/new", { :controller => "entries", :action => "new" })  # Form to add entry
-  post("/places/:place_id/entries", { :controller => "entries", :action => "create" })  # Create entry
-
-  # Set root route to show the list of places
-  root "places#index"
+  # Routes for Entries (Nested under Places)
+  get("/places/:place_id/entries/new", { :controller => "entries", :action => "new" })
+  post("/places/:place_id/entries", { :controller => "entries", :action => "create" })
+  get("/places/:place_id/entries/:id/edit", { :controller => "entries", :action => "edit" })
+  patch("/places/:place_id/entries/:id", { :controller => "entries", :action => "update" })
+  delete("/places/:place_id/entries/:id", { :controller => "entries", :action => "destroy" })
 end
