@@ -4,7 +4,7 @@ class PlacesController < ApplicationController
   end
 
   def show
-    @place = Place.find_by({ "id" => params["id"] })
+    @place = Place.find(params[:id])
     @entries = @place.entries
   end
 
@@ -13,12 +13,36 @@ class PlacesController < ApplicationController
   end
 
   def create
-    @place = Place.new
-    @place["name"] = params["name"]  # Assign form input to Place name
+    @place = Place.new(place_params)
     if @place.save
-      redirect_to("/places")  # Redirect to the list of places after saving
+      redirect_to "/places"
     else
-      render "new"  # Stay on form if there's an error
+      render "new"
     end
+  end
+
+  def edit
+    @place = Place.find(params[:id])
+  end
+
+  def update
+    @place = Place.find(params[:id])
+    if @place.update(place_params)
+      redirect_to "/places/#{@place.id}"
+    else
+      render "edit"
+    end
+  end
+
+  def destroy
+    @place = Place.find(params[:id])
+    @place.destroy
+    redirect_to "/places"
+  end
+
+  private
+
+  def place_params
+    params.require(:place).permit(:name)
   end
 end

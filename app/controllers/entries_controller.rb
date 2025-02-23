@@ -1,39 +1,47 @@
 class EntriesController < ApplicationController
   def new
-    @place = Place.find_by({ "id" => params["place_id"] })
+    @place = Place.find(params[:place_id])
     @entry = Entry.new
   end
 
   def create
-    @place = Place.find_by({ "id" => params["place_id"] })
-    @entry = Entry.new
-    @entry["title"] = params["title"]
-    @entry["description"] = params["description"]
-    @entry["date"] = params["date"]
-    @entry["place_id"] = @place["id"]
-    @entry.save
+    @place = Place.find(params[:place_id])
+    @entry = @place.entries.build(entry_params)
 
-    redirect_to("/places/#{@place["id"]}")
+    if @entry.save
+      redirect_to "/places/#{@place.id}"
+    else
+      render "new"
+    end
   end
 
   def edit
-    @place = Place.find_by({ "id" => params["place_id"] })
-    @entry = @place.entries.find(params["id"])
+    @place = Place.find(params[:place_id])
+    @entry = @place.entries.find(params[:id])
   end
 
   def update
-    @place = Place.find_by({ "id" => params["place_id"] })
-    @entry = @place.entries.find(params["id"])
-    @entry.update(title: params["title"], description: params["description"], date: params["date"])
+    @place = Place.find(params[:place_id])
+    @entry = @place.entries.find(params[:id])
 
-    redirect_to("/places/#{@place["id"]}")
+    if @entry.update(entry_params)
+      redirect_to "/places/#{@place.id}"
+    else
+      render "edit"
+    end
   end
 
   def destroy
-    @place = Place.find_by({ "id" => params["place_id"] })
-    @entry = @place.entries.find(params["id"])
+    @place = Place.find(params[:place_id])
+    @entry = @place.entries.find(params[:id])
     @entry.destroy
 
-    redirect_to("/places/#{@place["id"]}")
+    redirect_to "/places/#{@place.id}"
+  end
+
+  private
+
+  def entry_params
+    params.require(:entry).permit(:title, :description, :date)
   end
 end

@@ -1,14 +1,16 @@
-<h1>Add a New Place</h1>
+<h1>Places I've Been</h1>
 
-<form action="/places" method="post">
-  <p>
-    <label for="name">Place Name</label><br>
-    <input type="text" name="name">
-  </p>
+<ul>
+  <% @places.each do |place| %>
+    <li>
+      <%= link_to place.name, "/places/#{place.id}" %>
+      <%= link_to "Edit", "/places/#{place.id}/edit" %> |
+      <form action="/places/<%= place.id %>" method="post" style="display:inline;">
+        <input type="hidden" name="_method" value="delete">
+        <button>Delete</button>
+      </form>
+    </li>
+  <% end %>
+</ul>
 
-  <p>
-    <button>Add Place</button>
-  </p>
-</form>
-
-<p><%= link_to "Back to Places", "/places" %></p>
+<p><%= link_to "Add a New Place", "/places/new" %></p>

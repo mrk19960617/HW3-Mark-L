@@ -1,2 +1,24 @@
-<h1>Entries#edit</h1>
-<p>Find me in app/views/entries/edit.html.erb</p>
+<h1>Edit Entry for <%= @place.name %></h1>
+
+<%= form_with model: @entry, url: "/places/#{@place.id}/entries/#{@entry.id}", method: "patch" do |f| %>
+  <p>
+    <label>Title:</label><br>
+    <%= f.text_field :title %>
+  </p>
+
+  <p>
+    <label>Description:</label><br>
+    <%= f.text_area :description %>
+  </p>
+
+  <p>
+    <label>Date:</label><br>
+    <%= f.date_field :date %>
+  </p>
+
+  <p>
+    <%= f.submit "Update Entry" %>
+  </p>
+<% end %>
+
+<p><%= link_to "Back to Place", "/places/#{@place.id}" %></p>

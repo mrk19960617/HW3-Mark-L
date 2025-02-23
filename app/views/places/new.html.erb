@@ -1,2 +1,14 @@
-<h1>Places#new</h1>
-<p>Find me in app/views/places/new.html.erb</p>
+<h1>Add a New Place</h1>
+
+<%= form_with model: @place, url: "/places", method: "post" do |f| %>
+  <p>
+    <label>Place Name:</label><br>
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.submit "Add Place" %>
+  </p>
+<% end %>
+
+<p><%= link_to "Back to Places", "/places" %></p>

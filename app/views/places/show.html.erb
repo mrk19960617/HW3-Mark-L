@@ -1,14 +1,20 @@
-<h1><%= @place["name"] %></h1>
+<h1><%= @place.name %></h1>
 
 <h2>Journal Entries</h2>
 <ul>
   <% @entries.each do |entry| %>
     <li>
-      <strong><%= entry["title"] %></strong> - <%= entry["date"] %>
-      <p><%= entry["description"] %></p>
+      <strong><%= entry.title %></strong> - <%= entry.date %>
+      <p><%= entry.description %></p>
+
+      <%= link_to "Edit", "/places/#{@place.id}/entries/#{entry.id}/edit" %> |
+      <form action="/places/<%= @place.id %>/entries/<%= entry.id %>" method="post" style="display:inline;">
+        <input type="hidden" name="_method" value="delete">
+        <button>Delete</button>
+      </form>
     </li>
   <% end %>
 </ul>
 
-<p><%= link_to "Add Entry", "/places/#{@place["id"]}/entries/new" %></p>
+<p><%= link_to "Add Entry", "/places/#{@place.id}/entries/new" %></p>
 <p><%= link_to "Back to Places", "/places" %></p>
